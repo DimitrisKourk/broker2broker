@@ -1,0 +1,53 @@
+.my-profile-page{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 85%;
+    height: 100%;
+    overflow-y: scroll;
+
+}
+
+.profile-page-business-name{
+    font-size: xx-large;
+    font-weight: 700;
+    margin: 2rem 0 0 2rem;
+}
+
+.profile-page-name{
+    font-size: x-large;
+    font-weight: 400;
+    margin: .5rem 0 0 2rem;
+}
+.profile-page-area{
+    font-size: x-large;
+    font-weight: 400;
+    margin: .5rem 0 0 2rem;
+}
+
+.profile-page{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+}
+.user-details{
+    display: flex;
+    flex-direction: column;
+}
+.profile-top-wrapper{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    padding: .5rem;
+}
+.profile-top-wrapper .profile-picture{
+    aspect-ratio: 1;
+    object-fit: cover;
+    width: 20%;
+    border-radius: 1rem;
+}

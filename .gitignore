@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# production build
+dist/
+
+# environment variables
+.env
+.env.*
+!.env.example
+
+# user-uploaded images (keep only the default placeholders)
+src/BackEnd/imageUploads/profiles/*
+!src/BackEnd/imageUploads/profiles/profile-default.png
+src/BackEnd/imageUploads/properties/*
+!src/BackEnd/imageUploads/properties/property-default.png
+
+# logs
+logs/
+*.log
+npm-debug.log*
+
+# editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

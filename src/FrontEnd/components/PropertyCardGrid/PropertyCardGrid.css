@@ -1,0 +1,12 @@
+.properties-grid-wrapper{
+    padding-left: 10px ;
+    width:100%;
+}
+.property-card-grid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    overflow-y: scroll;
+    justify-content: space-evenly;
+}

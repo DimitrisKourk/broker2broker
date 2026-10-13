@@ -1,0 +1,12 @@
+.close-window-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.close-window-wrapper svg:hover{
+    border: 2px solid #f67d00;
+    border-radius: 5px;
+    fill: white;
+    
+}

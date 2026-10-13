@@ -1,0 +1,11 @@
+.search-users-wrapper{
+    height: 98%;
+}
+.search-users-title{
+    height: 5%;
+}
+.search-bar{
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+}

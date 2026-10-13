@@ -1,0 +1,55 @@
+.dataPreview{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 250px;
+    width: 100%;
+    gap: 20px;
+    list-style: none;
+    text-align: left;
+}
+
+.dataPreview li{
+    width: 40%;
+}
+.PropertyStepForm{
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+.upload-property-form-button{
+    height: 70%;
+    width: 10%;
+    display: flex;
+    align-items: center;
+}
+.upload-property-form-button div svg:hover{
+    color: #f67d00;
+}
+.PropertyStepFormStep1,.PropertyStepFormStep2,.PropertyStepFormStep3,.PropertyStepFormStep4,.PropertyStepFormStep5,.PropertyStepFormStep6,.PropertyStepFormStep7,.PropertyStepFormStep8,.PropertyStepFormStep9{
+    width: 80%;
+}
+
+.PropertyStepFormStep1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form-title{
+    font-size: 2rem;
+    width: 100%;
+    height: 15%;
+}
+.form-step{
+    font-size: 1.5rem;
+    width: 100%;
+    height: 15%;
+}
+
+
+

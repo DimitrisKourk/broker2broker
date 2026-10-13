@@ -1,0 +1,37 @@
+.subscriptions-pricing{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+.subscription-plans-wrapper{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.plan-details{
+    width: 100%;
+    min-height: 400%;
+}
+
+#Basic-details{
+    min-height: 25%;
+}
+
+#Standard-details{
+    min-height: 25%;
+}
+
+#Unlimited-details{
+    min-height: 25%;
+}
+
+#Enterprise-details{
+    min-height: 25%;
+
+}

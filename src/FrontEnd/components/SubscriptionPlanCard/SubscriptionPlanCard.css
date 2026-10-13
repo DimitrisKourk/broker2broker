@@ -1,0 +1,101 @@
+.plan-card-wrapper{
+    border: 2px solid white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    height: 60%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.plan-card{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.Basic{
+    border-color: white;
+}
+
+.Standard{
+    height: 70%;
+    border: 4px solid #f67d00;
+    position: relative;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.Standard::before{
+    display: block;
+    text-align: center;
+    content: "Best Value";
+    position: absolute;
+    top: -3rem;
+    font-size: xx-large;
+    background-color: #f67d00;
+    width: 100%;
+    border: 4px solid #f67d00;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.plan-title{
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: xx-large;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid white ;
+
+}
+.plan-price{
+    font-size: 5rem;
+}
+.plan-price::after{
+    font-size: medium;
+    content: '€ /μήνα';
+}
+.Enterprise .plan-price::after{
+    content: '';
+}
+.Enterprise .plan-price{
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.plan-benefits{
+    width: 100%;
+
+}
+.benefit{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: .3rem;
+}
+
+.buy-button{
+    display: block;
+    width: 40%;
+    text-align: center;
+    border: 2px solid transparent;
+    border-radius: 2rem;
+    background-color: #f67d00;
+    color: white;
+    transition: 0.15s;
+    padding: 1rem;
+}
+
+.buy-button:hover{
+    border: 2px solid #ffffff;
+    font-size: large;
+}

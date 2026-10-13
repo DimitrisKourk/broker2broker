@@ -1,0 +1,16 @@
+.user-grid-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 85%;
+    width: 100%;
+
+}
+.user-card-grid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: scroll ;
+    height:fit-content ;
+    justify-content: flex-start;
+    width: 100%;
+}

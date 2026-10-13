@@ -1,0 +1,86 @@
+import { useState,useContext, createContext } from "react";
+import {useNavigate} from "react-router";
+const AuthContext = createContext(null);
+
+const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("UserData")) || null);
+    const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("AuthStatus") || "false");
+    const [subscription, setSubscription] = useState(localStorage.getItem("SubscriptionPlan")||"none");
+    const navigate = useNavigate();
+    const loginAction = async (data,redirectionURL) => {
+        try {
+            const response = await fetch('http://localhost:3000/api/user/auth/login/submit-user-info', {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            const res = await response.json();
+            if (res.isAuthenticated===true) {
+                const responsePlan= await fetch('http://localhost:3000/api/user/auth/login/check-subscription', {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
+
+                const resPlan= await responsePlan.json();
+                setSubscription(resPlan.plan);
+                setUser(res.user);
+                setIsAuthenticated(res.isAuthenticated.toString());
+                localStorage.setItem("UserData", JSON.stringify(res.user));
+                localStorage.setItem("AuthStatus", res.isAuthenticated.toString());
+                localStorage.setItem("SubscriptionPlan",resPlan.plan);
+                navigate(redirectionURL);
+            }
+            else if (res.isAuthenticated === false) {
+                alert(res.message);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    const logOut = async() => {
+        try{
+            setUser(null);
+            setIsAuthenticated("false");
+            setSubscription("none");
+            localStorage.removeItem("AuthStatus");
+            localStorage.removeItem("UserData");
+            localStorage.removeItem("SubscriptionPlan");
+
+            const response = await fetch('http://localhost:3000/api/user/auth/logout', {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+
+            });
+            const res = await response.json();
+            if(res.loggedOut){
+                navigate("/auth");
+            }
+        }
+        catch (err) {
+            console.error(err);
+        }
+    };
+
+    return (
+        <AuthContext.Provider value={{user, isAuthenticated,subscription, loginAction, logOut }}>
+            {children}
+        </AuthContext.Provider>
+    );
+
+};
+
+export default AuthProvider;
+
+export const useAuth=()=> {
+    return useContext(AuthContext);
+}
+

@@ -1,0 +1,33 @@
+
+.search-button-wrapper{
+    display: flex;
+}
+.search-button-wrapper .search-button{
+    display: flex;
+    color: #f67d00;
+    background-color: rgba(0, 21, 42, .5);
+    border: 2px solid #f67d00;
+    padding: 5px;
+    align-items: center;
+}
+
+.search-button-wrapper .search-button:hover{ 
+    color: white;    
+    background-color: rgba(0, 21, 42, 1);
+}
+
+.search-users-modal{
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 21, 42, 1);
+    width: 60%;
+    height: 80%;
+    padding: 2%;
+    border: 2px solid #000;
+    border-radius: 10px;
+    overflow: clip;
+}
+
+.search-users-modal .close-window-wrapper{
+    height: 5%;
+}

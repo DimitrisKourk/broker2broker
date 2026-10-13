@@ -1,0 +1,8 @@
+.profile-associates{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 83%;
+    align-items: flex-start;
+    padding: 1rem;
+}

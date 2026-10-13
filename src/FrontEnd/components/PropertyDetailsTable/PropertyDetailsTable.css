@@ -1,0 +1,60 @@
+.table-wrapper{
+    background-color: whitesmoke;
+    width: 80%;
+    margin: 0 auto; /* Center the table if it's narrower than the container */
+    border: 2px solid #333;
+    border-radius: 10px;
+}
+.spec-table {
+    width: 100%;
+    max-width: 600px; /* Spec sheets are often narrow */
+    border-collapse: collapse;
+    font-family: sans-serif;
+    font-size: 0.95rem;
+    margin: 0 auto; /* Center the table if it's narrower than the container */
+    
+}
+
+.spec-table caption {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: left;
+    color: #333;
+}
+
+.spec-table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.spec-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Feature column (left) styling */
+.spec-table .spec-feature {
+    font-weight: 600;
+    color: #444;
+    width: 40%;
+}
+/* Value column (right) styling */
+.spec-table .spec-value {
+    color: #666;
+}
+
+/* Zebra-striping for easy scanning */
+.spec-table tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+/* Category header row styling */
+.spec-table .spec-category {
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: #f2f2f2;
+    color: #333;
+}
+.spec-table .spec-category td {
+    padding: 12px;
+    border-bottom: 2px solid #ccc;
+}

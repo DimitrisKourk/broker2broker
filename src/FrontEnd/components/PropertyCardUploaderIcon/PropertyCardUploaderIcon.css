@@ -1,0 +1,19 @@
+.property-uploader-icon{
+    width: 30%;
+}
+
+.property-uploader-icon .profile-picture{
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition: 0.25s;
+}
+.property-uploader-icon:hover{
+    .profile-picture{
+        border-color: white;
+    
+    }
+    cursor: pointer;
+}

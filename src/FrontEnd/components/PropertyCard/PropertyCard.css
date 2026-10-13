@@ -1,0 +1,52 @@
+
+.property-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    width: 20% ;
+    border: 2px solid white;
+    border-radius: 5%;
+}
+
+.property-card:hover{
+    border: 2px solid orange;
+    border-radius: 5%;
+}
+.property-card-img{
+    border-radius: 5%;
+    width: 100%;
+    aspect-ratio: 1.2;
+    object-fit: cover;
+}
+.property-details{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+}
+
+.property-card-beds, .property-card-baths, .property-card-sqm{
+    padding: 5px;
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: center;
+    justify-content: space-around;
+}
+
+.property-actions{
+    padding: 5px;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+}

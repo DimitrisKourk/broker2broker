@@ -1,0 +1,82 @@
+.text-input-component{
+  padding-top:25px ;
+  width: 50%;
+}
+.text-input-component .input-field {
+  position: relative;
+  display: block;
+  background-color: rgba(0, 21, 42, .9);
+}
+
+.text-input-component .input-field label {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    color: #f67d00;
+    font-size: 20px;
+    background: none;
+    transition: all 0.3s ease;
+    z-index: 1;
+  }
+
+.text-input-component .border-bottom {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid #f67d00;
+  transition: width 0.6s ease;
+}
+
+.text-input-component input[type="text"] {
+  position: relative;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #f67d00;
+  padding: 0.5rem 0;
+  color: #ccc;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 20px;
+  transition: 250ms all ease-in;
+  z-index: 100;
+}
+
+
+/* Focus or when input has value */
+.text-input-component input:focus + label,
+.text-input-component input:not(:placeholder-shown) + label {
+  top: -50%;
+  font-size: 12px;
+}
+
+/* Animate underline */
+.text-input-component input:focus ~ .border-bottom {
+  width: 100%;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+       color: transparent;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+       color: transparent;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+       color: transparent;
+    }
+
+    textarea::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+    }
+    textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+       color: transparent;
+    }
+    textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+       color: transparent;
+    }
+    textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
+       color: transparent;
+    }

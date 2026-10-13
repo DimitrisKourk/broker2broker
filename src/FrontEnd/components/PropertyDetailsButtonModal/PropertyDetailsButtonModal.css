@@ -1,0 +1,11 @@
+.property-details-modal{
+    background: grey;
+    width: 60%;
+    height: 80%;
+    margin: "auto";
+    padding: 2%;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 2px solid black;
+    overflow-y: hidden;
+}

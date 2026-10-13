@@ -1,0 +1,10 @@
+.associates-grid{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 98%;
+    width: 100%;
+    .user-grid-wrapper{
+        height: 100%;
+    }
+}
