@@ -41,8 +41,9 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false,  // true only transmit cookie over https
-            httpOnly: false, // true prevent client side JS from reading the cookie
+            secure: process.env.NODE_ENV === 'production', // only transmit cookie over https in production
+            httpOnly: true, // prevent client side JS from reading the cookie
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // 'none' requires secure:true, needed if frontend/backend end up on different domains in production
             maxAge: 1000 * 60 * 10, // session max age in milliseconds
         },
     })
