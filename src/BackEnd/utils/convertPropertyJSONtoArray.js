@@ -2,7 +2,7 @@ import { convertArrayBooltoInt } from "./convertArrayBoolToInt.js";
 const convertPropertyJSONtoArray=(operation,property,userId)=>{
     
     if(operation==="create"){
-        let propertyArray=['',0,0,0,'Greece','','','','','','',0,0,0,0,0,0,0,'',0,0,'','','','','','private',userId,'','']
+        let propertyArray=['',0,0,0,'Greece','','','','','','',0,0,0,0,0,0,0,'',0,0,'','','','','','Private',userId,'','']
     
         if('property_type' in property){propertyArray[0]=property.property_type};
         if('rental' in property)(propertyArray[1]=property.rental);
@@ -40,7 +40,7 @@ const convertPropertyJSONtoArray=(operation,property,userId)=>{
     }
     else if(operation==="update"){
         
-        let propertyArray=['',0,0,0,'Greece','','','','','','',0,0,0,0,0,0,0,'',0,0,'','','','','','private','','']
+        let propertyArray=['',0,0,0,'Greece','','','','','','',0,0,0,0,0,0,0,'',0,0,'','','','','','Private','','']
     
         if('property_type' in property){propertyArray[0]=property.property_type};
         if('rental' in property)(propertyArray[1]=property.rental);

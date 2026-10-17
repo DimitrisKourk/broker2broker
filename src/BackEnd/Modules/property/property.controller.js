@@ -63,6 +63,7 @@ const getPropertyImages=async (req,res)=>{
     try{
         let payload={ database : res.locals.database,
             propertyId : req.params.propertyId,
+            requestorId: req.user[0].id
         };
         let result = await propertyService.getPropertyImages(payload);
         res.status(200).json(result);        

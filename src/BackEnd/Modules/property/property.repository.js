@@ -1,27 +1,57 @@
 import {convertPropertyJSONtoArray} from "../../utils/convertPropertyJSONtoArray.js";
 
+//true if requestorId is in the owner's associates list
+const isAssociateOf= async (database,ownerId,requestorId)=>{
+    const sql = 'SELECT EXISTS (SELECT * FROM `associates` WHERE user_id=? and friend_id=? LIMIT 1) as `association_exists`';
+    const [rows] = await database.query(sql,[ownerId,requestorId]);
+    return !!rows[0].association_exists;
+}
+
+//owner always has access; otherwise access follows the property's visibility level
+const canAccessProperty= async (database,property,requestorId)=>{
+    if(requestorId==property.user_id){
+        return true;
+    }
+    if(property.visibility==="Private"){
+        return false;
+    }
+    if(property.visibility==="Associates"){
+        return await isAssociateOf(database,property.user_id,requestorId);
+    }
+    return property.visibility==="Public";
+}
+
 const getPropertyDetails= async (database,propertyId,requestorId)=>{
     try {
         const sql = 'SELECT * FROM `properties` where `property_id`= ?';
         let values=[parseInt(propertyId)];
         const [rows] = await database.execute(sql,values);
-        
+
         if(rows.length===0){
             return {success:false,message:"No property found matching the given id"};
         }
 
-        if(requestorId!=rows[0].user_id && rows[0].visibility==="Private"){
-            return {success:false,message:"Property is Private"};
+        if(!(await canAccessProperty(database,rows[0],requestorId))){
+            return {success:false,message:"You do not have access to this property"};
         }
         return {success:true,property:rows[0]};
-        
+
 
     } catch (err) {
         return err;
     }
 }
-const getPropertyImages= async (database,propertyId)=>{
+const getPropertyImages= async (database,propertyId,requestorId)=>{
     try {
+        const propertySql = 'SELECT `user_id`,`visibility` FROM `properties` where `property_id`= ?';
+        const [propertyRows] = await database.execute(propertySql,[parseInt(propertyId)]);
+        if(propertyRows.length===0){
+            return {success:false,message:"No property found matching the given id"};
+        }
+        if(!(await canAccessProperty(database,propertyRows[0],requestorId))){
+            return {success:false,message:"You do not have access to this property's images"};
+        }
+
         const sql = 'SELECT * FROM `propertyimages` where `property_id`= ?';
         let values=[parseInt(propertyId)];
         const [rows] = await database.execute(sql,values);
@@ -63,7 +93,7 @@ const getUserProfileProperties= async (database,userId,association)=>{
         if(association==='myself'){
             sql+=' LIMIT 20'
         }
-        else if(association==='associate'){
+        else if(association==='associates'){
             sql+=' AND visibility!="Private" LIMIT 20'
         }
         else if(association==='not associated'){

@@ -7,7 +7,7 @@ const associationStatus = async(req,res,next) => {
         if(sessionUserId===parseInt(req.params.userId)){
             //when you view your own profile set it like you are your own associate
             res.locals.association='myself';
-            next();
+            return next();
         }
 
         let status= await getAssociationStatus(res.locals.database,req.user[0].id,req.params.userId);

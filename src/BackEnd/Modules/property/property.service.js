@@ -35,10 +35,6 @@ const getPropertyDetails=async(payload)=>{
             return result;
         }
 
-        if( result.property.user_id!==payload.requestorId){
-            return result;
-        }
-        
         // if user is not the original property uploader show limited view of the property data
         //Hide Sensitive Data
         delete result.property.visibility;
@@ -89,7 +85,7 @@ const getAssociatesProperties=async(payload)=>{
 }
 const getPropertyImages=async(payload)=>{
     try {
-        return await propertyRepository.getPropertyImages(payload.database,payload.propertyId);
+        return await propertyRepository.getPropertyImages(payload.database,payload.propertyId,payload.requestorId);
     }
     catch (e) {
         return e;
