@@ -9,7 +9,7 @@ const getAllUsers =  async (req, res) => {
         res.status(200).json(users);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -24,7 +24,7 @@ const getUserByUsername = async (req, res) => {
         res.status(200).json(user);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 const getProfilePicture = async (req, res) => {
@@ -38,7 +38,7 @@ const getProfilePicture = async (req, res) => {
         res.status(200).json(result);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -53,7 +53,7 @@ const getUserByBusinessName = async (req, res) => {
         res.status(200).json(users);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -68,7 +68,7 @@ const checkUsernameExists = async (req, res) => {
         res.status(200).json(data);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -91,7 +91,7 @@ const createUser = async (req, res) => {
         else res.status(500).json({registerUser: false, createRequest: false, message:user.message});
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -99,7 +99,7 @@ const logoutUser = async (req, res) => {
     try{
         req.logout((err) => {
             if (err) {
-                res.status(500).json(err);
+                res.status(500).json({success:false,message:err.message});
             }
             req.session.destroy();
             res.clearCookie('connect.sid');
@@ -107,7 +107,7 @@ const logoutUser = async (req, res) => {
         });
     }
     catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({success:false,message:err.message});
     }
 }
 
@@ -124,7 +124,7 @@ const checkSubscription = async (req, res) => {
         res.status(200).json(subPlan);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -136,7 +136,7 @@ const getPendingRegistrationRequests =  async (req, res) => {
         res.status(200).json({requests});
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -148,7 +148,7 @@ const getApprovedRegistrationRequests =  async (req, res) => {
         res.status(200).json({requests});
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -160,7 +160,7 @@ const getDeclinedRegistrationRequests =  async (req, res) => {
         res.status(200).json({requests});
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -176,7 +176,7 @@ const approveRegistrationRequest =  async (req, res) => {
         res.status(200).json(requests);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 const declineRegistrationRequest =  async (req, res) => {
@@ -189,7 +189,7 @@ const declineRegistrationRequest =  async (req, res) => {
         res.status(200).json(requests);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -203,7 +203,7 @@ const createAssociationRequest =  async (req, res) => {
         res.status(200).json(request);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -217,7 +217,7 @@ const cancelAssociationRequest =  async (req, res) => {
         res.status(200).json(request);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -232,7 +232,7 @@ const acceptAssociationRequest =  async (req, res) => {
         res.status(200).json(request);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 const deleteAssociation =  async (req, res) => {
@@ -245,7 +245,7 @@ const deleteAssociation =  async (req, res) => {
         res.status(200).json(request);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 const declineAssociationRequest =  async (req, res) => {
@@ -258,7 +258,7 @@ const declineAssociationRequest =  async (req, res) => {
         res.status(200).json(request);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -274,7 +274,7 @@ const getAssociationStatus=  async (req, res) => {
     }
     catch (e) {
         console.log(e)
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 
@@ -287,7 +287,7 @@ const getAssociates =  async (req, res) => {
         res.status(200).json(users);
     }
     catch (e) {
-        res.status(500).json(e);
+        res.status(500).json({success:false,message:e.message});
     }
 };
 const uploadProfilePicture= async(req,res)=>{

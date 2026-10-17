@@ -22,117 +22,96 @@ const canAccessProperty= async (database,property,requestorId)=>{
 }
 
 const getPropertyDetails= async (database,propertyId,requestorId)=>{
-    try {
-        const sql = 'SELECT * FROM `properties` where `property_id`= ?';
-        let values=[parseInt(propertyId)];
-        const [rows] = await database.execute(sql,values);
+    const sql = 'SELECT * FROM `properties` where `property_id`= ?';
+    let values=[parseInt(propertyId)];
+    const [rows] = await database.execute(sql,values);
 
-        if(rows.length===0){
-            return {success:false,message:"No property found matching the given id"};
-        }
-
-        if(!(await canAccessProperty(database,rows[0],requestorId))){
-            return {success:false,message:"You do not have access to this property"};
-        }
-        return {success:true,property:rows[0]};
-
-
-    } catch (err) {
-        return err;
+    if(rows.length===0){
+        return {success:false,message:"No property found matching the given id"};
     }
+
+    if(!(await canAccessProperty(database,rows[0],requestorId))){
+        return {success:false,message:"You do not have access to this property"};
+    }
+    return {success:true,property:rows[0]};
+
+
 }
 const getPropertyImages= async (database,propertyId,requestorId)=>{
-    try {
-        const propertySql = 'SELECT `user_id`,`visibility` FROM `properties` where `property_id`= ?';
-        const [propertyRows] = await database.execute(propertySql,[parseInt(propertyId)]);
-        if(propertyRows.length===0){
-            return {success:false,message:"No property found matching the given id"};
-        }
-        if(!(await canAccessProperty(database,propertyRows[0],requestorId))){
-            return {success:false,message:"You do not have access to this property's images"};
-        }
+    const propertySql = 'SELECT `user_id`,`visibility` FROM `properties` where `property_id`= ?';
+    const [propertyRows] = await database.execute(propertySql,[parseInt(propertyId)]);
+    if(propertyRows.length===0){
+        return {success:false,message:"No property found matching the given id"};
+    }
+    if(!(await canAccessProperty(database,propertyRows[0],requestorId))){
+        return {success:false,message:"You do not have access to this property's images"};
+    }
 
-        const sql = 'SELECT * FROM `propertyimages` where `property_id`= ?';
-        let values=[parseInt(propertyId)];
-        const [rows] = await database.execute(sql,values);
-        if(rows.length===0){
-            return {success:false,message:"No images found matching the given property id"};
-        }
-        else{
-            return {success:true,images:rows};
-        }
-    } catch (err) {
-        return err;
+    const sql = 'SELECT * FROM `propertyimages` where `property_id`= ?';
+    let values=[parseInt(propertyId)];
+    const [rows] = await database.execute(sql,values);
+    if(rows.length===0){
+        return {success:false,message:"No images found matching the given property id"};
+    }
+    else{
+        return {success:true,images:rows};
     }
 }
 const getUserProperties= async (database,requestorId)=>{
-    try {
-        const values=[requestorId];
-        const sql = 'SELECT user_id,property_id,beds,baths,square_meters,hero_image FROM `properties` WHERE `user_id`=? LIMIT 20';
-        const [rows] = await database.execute(sql,values);
-        console.log(rows);
-        if(rows.length===0){
-            return {success:false,message:"No property found"};
-        }
-        else{
-            return {success:true,properties:rows};
-        }
+    const values=[requestorId];
+    const sql = 'SELECT user_id,property_id,beds,baths,square_meters,hero_image FROM `properties` WHERE `user_id`=? LIMIT 20';
+    const [rows] = await database.execute(sql,values);
+    console.log(rows);
+    if(rows.length===0){
+        return {success:false,message:"No property found"};
+    }
+    else{
+        return {success:true,properties:rows};
+    }
         
         
 
-    } catch (err) {
-        return err;
-    }
 }
 
 const getUserProfileProperties= async (database,userId,association)=>{
-    try {
-        console.log(association,userId)
-        const values=[userId];
-        let sql = 'SELECT user_id,property_id,beds,baths,square_meters,hero_image FROM `properties` WHERE `user_id`=?';
-        if(association==='myself'){
-            sql+=' LIMIT 20'
-        }
-        else if(association==='associates'){
-            sql+=' AND visibility!="Private" LIMIT 20'
-        }
-        else if(association==='not associated'){
-            sql+=' AND visibility!="Private" AND visibility!="Associates" LIMIT 20'
-        }
+    console.log(association,userId)
+    const values=[userId];
+    let sql = 'SELECT user_id,property_id,beds,baths,square_meters,hero_image FROM `properties` WHERE `user_id`=?';
+    if(association==='myself'){
+        sql+=' LIMIT 20'
+    }
+    else if(association==='associates'){
+        sql+=' AND visibility!="Private" LIMIT 20'
+    }
+    else if(association==='not associated'){
+        sql+=' AND visibility!="Private" AND visibility!="Associates" LIMIT 20'
+    }
         
         
-        const [rows] = await database.execute(sql,values);
-        if(rows.length===0){
-            console.log("NOT found user profile properties");
-            return {success:false,message:"No property found"};
-        }
-        else{
-            console.log("found user profile properties");
-            return {success:true,properties:rows};
-        }
-    } 
-    catch (err) {
-        return err;
+    const [rows] = await database.execute(sql,values);
+    if(rows.length===0){
+        console.log("NOT found user profile properties");
+        return {success:false,message:"No property found"};
+    }
+    else{
+        console.log("found user profile properties");
+        return {success:true,properties:rows};
     }
 }
 
 const getAssociatesProperties= async (database,requestorId)=>{
-    try {
-        const values=[requestorId];
-        const sql = 'SELECT property_id,square_meters,beds,baths,hero_image,username AS uploader_username,associates.friend_id AS user_id FROM (properties LEFT JOIN associates ON associates.friend_id = properties.user_id)JOIN users on users.user_id=associates.friend_id WHERE associates.user_id=? and properties.visibility!="Private"';
-        const [rows] = await database.execute(sql,values);
-        console.log(rows);
+    const values=[requestorId];
+    const sql = 'SELECT property_id,square_meters,beds,baths,hero_image,username AS uploader_username,associates.friend_id AS user_id FROM (properties LEFT JOIN associates ON associates.friend_id = properties.user_id)JOIN users on users.user_id=associates.friend_id WHERE associates.user_id=? and properties.visibility!="Private"';
+    const [rows] = await database.execute(sql,values);
+    console.log(rows);
 
-        if(rows.length===0){
-            return {success:false,message:"No properties found"};
-        }
-        else{
-            return {success:true,properties:rows};
-        }
-
-    } catch (err) {
-        return err;
+    if(rows.length===0){
+        return {success:false,message:"No properties found"};
     }
+    else{
+        return {success:true,properties:rows};
+    }
+
 }
 
 const createProperty=async(database,propertyData,userId)=>{
@@ -156,31 +135,26 @@ const createProperty=async(database,propertyData,userId)=>{
 
 const createPropertyImageReferences=async(database,propertyImageData,propertyId)=>{
 
-    try{
-        let values=[];
-        //Boooleans to int for saving in db
-        for (let image of propertyImageData ){
-            values.push(propertyId,image);        
+    let values=[];
+    //Boooleans to int for saving in db
+    for (let image of propertyImageData ){
+        values.push(propertyId,image);        
+    }
+    let sql=  'INSERT INTO `propertyimages`(`property_id`,`image_path`) VALUES ';
+    const imageNumber=propertyImageData.length-1;
+    for(let i=0;i<=imageNumber;i++){
+        if(i===imageNumber){
+            sql+='(?,?)';
         }
-        let sql=  'INSERT INTO `propertyimages`(`property_id`,`image_path`) VALUES ';
-        const imageNumber=propertyImageData.length-1;
-        for(let i=0;i<=imageNumber;i++){
-            if(i===imageNumber){
-                sql+='(?,?)';
-            }
-            else{
-                sql+='(?,?),';
-            }
+        else{
+            sql+='(?,?),';
         }
-        const [result]=await database.execute(sql,values);
-        if(result.affectedRows){
-            return {imagesSuccess:true,imagesMessage:"Property image references uploaded successfully"};
-        }
+    }
+    const [result]=await database.execute(sql,values);
+    if(result.affectedRows){
+        return {imagesSuccess:true,imagesMessage:"Property image references uploaded successfully"};
+    }
 
-    }
-    catch(e){
-        return {imagesSuccess:false,imagesMessage:e};
-    }
 }
 const createPropertyHeroImageReference=async(database,propertyHeroImage,propertyId)=>{
 
@@ -197,7 +171,7 @@ const createPropertyHeroImageReference=async(database,propertyHeroImage,property
     }
     catch(e){
         console.log(e);
-        return {heroImageSuccess:false,heroImageMessage:e};
+        throw e;
     }
 }
 
@@ -224,95 +198,75 @@ const updateProperty=async(database,propertyData,userId)=>{
 }
 
 const getFavouriteStatus= async (database,propertyId,userId)=>{
-    try {
 
-        let values=[propertyId,userId];
-        const sql = 'SELECT EXISTS (SELECT * FROM `favourites` WHERE `property_id`= ? and user_id=? LIMIT 1) as `favourite_status`';
-        const [rows] = await database.execute(sql,values);
-        console.log("favourite status:" +rows[0].favourite_status )
-        if(rows[0].favourite_status){
-            return {success:true,favourite:true};
-        }
-        return {success:true,favourite:false};
+    let values=[propertyId,userId];
+    const sql = 'SELECT EXISTS (SELECT * FROM `favourites` WHERE `property_id`= ? and user_id=? LIMIT 1) as `favourite_status`';
+    const [rows] = await database.execute(sql,values);
+    console.log("favourite status:" +rows[0].favourite_status )
+    if(rows[0].favourite_status){
+        return {success:true,favourite:true};
+    }
+    return {success:true,favourite:false};
         
 
-    } catch (err) {
-        return {success:false,message:err};
-    }
 }
 
 const addFavourite= async (database,propertyId,userId)=>{
-    try {
 
-        let values=[propertyId,userId];
-        const sql = 'INSERT INTO `favourites`  (property_id,user_id,date) VALUES (?,?,NOW())';
-        const [rows] = await database.execute(sql,values);
-        if(rows.affectedRows){
-            return {success:true};
-        }
-        
-        return {success:false,message:"Error Adding property to favourites"};
-        
-
-    } catch (err) {
-        return {success:false,message:err};
+    let values=[propertyId,userId];
+    const sql = 'INSERT INTO `favourites`  (property_id,user_id,date) VALUES (?,?,NOW())';
+    const [rows] = await database.execute(sql,values);
+    if(rows.affectedRows){
+        return {success:true};
     }
+        
+    return {success:false,message:"Error Adding property to favourites"};
+        
+
 }
 
 const removeFavourite= async (database,propertyId,userId)=>{
-    try {
 
-        let values=[propertyId,userId];
-        const sql = 'DELETE FROM `favourites` WHERE `property_id`= ? and user_id=?';
-        const [rows] = await database.execute(sql,values);
-        if(rows.affectedRows){
-            return {success:true};
-        }
-        
-        return {success:false,message:"Error removing property from favourites"};
-        
-
-    } catch (err) {
-        return {success:false,message:err};
+    let values=[propertyId,userId];
+    const sql = 'DELETE FROM `favourites` WHERE `property_id`= ? and user_id=?';
+    const [rows] = await database.execute(sql,values);
+    if(rows.affectedRows){
+        return {success:true};
     }
+        
+    return {success:false,message:"Error removing property from favourites"};
+        
+
 }
 
 const getFavouriteProperties= async (database,userId)=>{
-    try {
-        const values=[userId];
-        const sql = 'SELECT properties.property_id,square_meters,beds,baths,hero_image,username AS uploader_username,properties.user_id AS user_id FROM (properties LEFT JOIN favourites ON favourites.property_id = properties.property_id)JOIN users on users.user_id=properties.user_id WHERE favourites.user_id=? and properties.visibility!="Private"';
-        const [rows] = await database.execute(sql,values);
-        console.log(rows);
-        if(rows.length===0){
-            return {success:false,message:"No properties found"};
-        }
-        else{
-            return {success:true,properties:rows};
-        }
+    const values=[userId];
+    const sql = 'SELECT properties.property_id,square_meters,beds,baths,hero_image,username AS uploader_username,properties.user_id AS user_id FROM (properties LEFT JOIN favourites ON favourites.property_id = properties.property_id)JOIN users on users.user_id=properties.user_id WHERE favourites.user_id=? and properties.visibility!="Private"';
+    const [rows] = await database.execute(sql,values);
+    console.log(rows);
+    if(rows.length===0){
+        return {success:false,message:"No properties found"};
+    }
+    else{
+        return {success:true,properties:rows};
+    }
         
         
 
-    } catch (err) {
-        return err;
-    }
 }
 
 const getPropertiesCount= async (database,userId)=>{
-    try {
-        const values=[userId];
-        const sql = 'select count(*) total_properties, sum(rental=0 ) sale_properties, sum(rental=1 ) rental_properties from properties where user_id=?';
-        const [rows] = await database.execute(sql,values);
-        console.log(rows);
-        if(rows.length===0){
-            return {success:false,message:"No properties found"};
-        }
-        else{
-            return {success:true,...rows[0]};
-        }
-        
-    } catch (e) {
-        return e;
+    const values=[userId];
+    const sql = 'select count(*) total_properties, sum(rental=0 ) sale_properties, sum(rental=1 ) rental_properties from properties where user_id=?';
+    const [rows] = await database.execute(sql,values);
+    console.log(rows);
+    if(rows.length===0){
+        return {success:false,message:"No properties found"};
     }
+    else{
+        return {success:true,...rows[0]};
+    }
+        
 }
 
 

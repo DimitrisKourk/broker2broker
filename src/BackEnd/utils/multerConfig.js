@@ -60,5 +60,14 @@ const storageProfile = multer.diskStorage({
 const uploadPropertyImages = multer({ storage: storageProperties, limits: { fileSize: 50*1024*1024 }, fileFilter: imageFileFilter });
 const uploadProfilePicture = multer({ storage: storageProfile, limits: { fileSize: 10*1024*1024 }, fileFilter: imageFileFilter });
 
+//Express error-handling middleware (4 args) - catches rejections from the upload middlewares above
+//(bad file type, over size limit, ownership check failure) and returns a clean 4xx instead of
+//falling through to Express's default error handler
+const handleUploadError=(err,req,res,next)=>{
+    if(err){
+        return res.status(400).json({success:false,message:err.message});
+    }
+    next();
+}
 
-export  {uploadPropertyImages,uploadProfilePicture};
+export  {uploadPropertyImages,uploadProfilePicture,handleUploadError};

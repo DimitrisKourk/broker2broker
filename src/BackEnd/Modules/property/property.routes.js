@@ -1,7 +1,7 @@
 import express from 'express';
 import * as propertyController from './property.controller.js';
 import {isActiveMember} from "../../utils/userAuthorization.js";
-import {uploadPropertyImages} from '../../utils/multerConfig.js';
+import {uploadPropertyImages, handleUploadError} from '../../utils/multerConfig.js';
 import { associationStatus } from '../../utils/associationStatus.js';
 
 
@@ -15,7 +15,7 @@ export default function propertyRouter(data) {
         }
     );
 
-    router.post("/upload-property-images",isActiveMember,uploadPropertyImages.array("files",10) ,async (req, res) => {
+    router.post("/upload-property-images",isActiveMember,uploadPropertyImages.array("files",10),handleUploadError,async (req, res) => {
         res.locals.database = data.db;
         await propertyController.uploadPropertyImages(req, res);
         }

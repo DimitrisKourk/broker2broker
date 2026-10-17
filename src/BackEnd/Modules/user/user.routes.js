@@ -5,7 +5,7 @@ import * as userController from './user.controller.js';
 import passport from "passport";
 import {isAuthenticated, isActiveMember} from "../../utils/userAuthorization.js";
 import {isAdmin} from "../../utils/adminAuthorization.js";
-import { uploadProfilePicture } from '../../utils/multerConfig.js';
+import { uploadProfilePicture, handleUploadError } from '../../utils/multerConfig.js';
 
 export default function userRouter(data) {
     let router = express.Router();
@@ -25,7 +25,7 @@ export default function userRouter(data) {
             await userController.getProfilePicture(req, res);
     });
 
-    router.post("/profile/upload-profile-picture",isActiveMember,uploadProfilePicture.single("file") ,async (req, res) => {
+    router.post("/profile/upload-profile-picture",isActiveMember,uploadProfilePicture.single("file"),handleUploadError,async (req, res) => {
         res.locals.database = data.db;
         await userController.uploadProfilePicture(req, res);
         }
