@@ -36,18 +36,18 @@ const PropertyStepFormStep3 = () => {
 
     
 
-    //<TextInputComponent mode="text" label="Country" id="country" value={context.property.country} handler={()=>handleCountryChange}/>
+    //<TextInputComponent mode="text" label="Country" inputId="country" value={context.property.country} handler={()=>handleCountryChange}/>
 
     return (
         <div className='PropertyStepFormStep3'>
-            <TextInputComponent mode="text" label="Region" id="region" value={context.property.region} handler={()=>handleRegionChange}/>
-            <TextInputComponent mode="text" label="Regional Unit" id="regionalUnit" value={context.property.regional_unit} handler={()=>handleRegionalUnitChange}/>
-            <TextInputComponent mode="text" label="Municipality" id="municipality" value={context.property.municipality} handler={()=>handleMunicipalityChange}/>
-            <TextInputComponent mode="text" label="City" id="city" value={context.property.city} handler={()=>handleCityChange}/>
-            <TextInputComponent mode="text" label="Neighborhood" id="neighborhood" value={context.property.neighborhood} handler={()=>handleNeighborhoodChange}/>    
-            <TextInputComponent mode="text" label="Address" id="address" value={context.property.property_address} handler={()=>handleAddressChange}/>    
-            <TextInputComponent mode="text" label="Owner Name" id="ownerName" value={context.property.property_owner_name} handler={()=>handleOwnerNameChange}/>    
-            <TextInputComponent mode="text" label="Owner Phone" id="ownerPhone" value={context.property.property_owner_phone} handler={()=>handleOwnerPhoneChange}/>    
+            <TextInputComponent mode="text" label="Region" inputId="region" value={context.property.region} handler={()=>handleRegionChange}/>
+            <TextInputComponent mode="text" label="Regional Unit" inputId="regionalUnit" value={context.property.regional_unit} handler={()=>handleRegionalUnitChange}/>
+            <TextInputComponent mode="text" label="Municipality" inputId="municipality" value={context.property.municipality} handler={()=>handleMunicipalityChange}/>
+            <TextInputComponent mode="text" label="City" inputId="city" value={context.property.city} handler={()=>handleCityChange}/>
+            <TextInputComponent mode="text" label="Neighborhood" inputId="neighborhood" value={context.property.neighborhood} handler={()=>handleNeighborhoodChange}/>    
+            <TextInputComponent mode="text" label="Address" inputId="address" value={context.property.property_address} handler={()=>handleAddressChange}/>    
+            <TextInputComponent mode="text" label="Owner Name" inputId="ownerName" value={context.property.property_owner_name} handler={()=>handleOwnerNameChange}/>    
+            <TextInputComponent mode="text" label="Owner Phone" inputId="ownerPhone" value={context.property.property_owner_phone} handler={()=>handleOwnerPhoneChange}/>    
         </div>
     )
 }

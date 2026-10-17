@@ -72,7 +72,7 @@ const PropertyStepFormStep4 = () => {
     return (
         <div className='PropertyStepFormStep4'>
                 <div className='text-input-wrapper'>
-                    <TextInputComponent mode="numeric" label="Square Meters" id="sqm" value={context.property?.square_meters} handler={()=>handleSqmChange}/>
+                    <TextInputComponent mode="numeric" label="Square Meters" inputId="sqm" value={context.property?.square_meters} handler={()=>handleSqmChange}/>
                 </div>
                 <div className='formSelectContainer'> 
                     <label htmlFor="beds">

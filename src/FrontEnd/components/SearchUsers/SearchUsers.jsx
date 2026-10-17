@@ -14,7 +14,7 @@ function SearchUsers() {
     <div className="search-users-wrapper">
       <div className="search-users-title">Find Users:</div>
         <div className="search-bar"> 
-          <TextInputComponent mode="text" label="Business Name" id="businessName" handler={()=>handleBusinessNameChange}/>
+          <TextInputComponent mode="text" label="Business Name" inputId="businessName" handler={()=>handleBusinessNameChange}/>
           <button onClick={()=>{context.searchUsers(businessName)}}>Search</button>
         </div>
         <UserCardGrid users={context.users} cardsPerRow={3}/>

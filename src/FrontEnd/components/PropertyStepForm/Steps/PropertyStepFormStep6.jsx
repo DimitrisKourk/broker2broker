@@ -79,7 +79,7 @@ const PropertyStepFormStep6 = () => {
   return (
     <div className='PropertyStepFormStep6'>
         
-        <TextInputComponent mode="numeric" label="Construction Year" id="constructionYear" value={context.property?.construction_date} handler={()=>handleConstructionYearChange}/>
+        <TextInputComponent mode="numeric" label="Construction Year" inputId="constructionYear" value={context.property?.construction_date} handler={()=>handleConstructionYearChange}/>
         <div className='formSelectContainer'>
             <label htmlFor="propertyState">Property State:</label>
             <Select
@@ -116,7 +116,7 @@ const PropertyStepFormStep6 = () => {
             <ToggleSwitch label="Balcony"  isChecked={balcony} onToggle={handleBalconyChange}/>
         </div>
         {context.property.balcony?
-        <TextInputComponent mode="numeric" label="Balcony Square Meters" id="balconysqm" value={context.property?.balcony_square_meters} handler={()=>handleBalconySqmChange}/>
+        <TextInputComponent mode="numeric" label="Balcony Square Meters" inputId="balconysqm" value={context.property?.balcony_square_meters} handler={()=>handleBalconySqmChange}/>
         :null
         }
 

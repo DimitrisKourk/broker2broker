@@ -63,7 +63,7 @@ const PropertyStepFormStep9 = () => {
     <div className="PropertyStepFormStep8">
         {context.property.rental?<h2>Rent Price per Month</h2>:<h2>Selling Price</h2>}
         <div className="wrapper">
-          <TextInputComponent mode="numeric" label="Price" id="price" value={context.property?.price} handler={()=>handlePriceChange}/>
+          <TextInputComponent mode="numeric" label="Price" inputId="price" value={context.property?.price} handler={()=>handlePriceChange}/>
           <div className='visibility-selection-container'>
             <label htmlFor="orientation">Property Visibility:</label>
             <Select
