@@ -303,7 +303,7 @@ const deleteAssociation= async (database,userA,userB)=>{
 
 const getAssociates= async (database,userId)=>{
     try {
-        const sql = 'SELECT friend_id AS user_id,name,surname,business_name,username,area_of_operation FROM associates JOIN users ON associates.friend_id=users.user_id WHERE associates.user_id= ?';
+        const sql = 'SELECT friend_id AS user_id,name,surname,business_name,username,area_of_operation,profile_image FROM associates JOIN users ON associates.friend_id=users.user_id WHERE associates.user_id= ?';
         let values=[userId];
         console.log(userId)
         const [rows] = await database.execute(sql,values);
