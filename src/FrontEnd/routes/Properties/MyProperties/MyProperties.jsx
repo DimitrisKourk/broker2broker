@@ -1,6 +1,7 @@
 import { useAuth } from "../../../components/AuthContext/AuthContext";
 import PropertiesCounter from "../../../components/PropertiesCounter/PropertiesCounter";
 import PropertyCardGrid from "../../../components/PropertyCardGrid/PropertyCardGrid";
+import { apiFetch } from "../../../utils/apiClient";
 import { useEffect,useState } from "react";
 import './MyProperties.css'
 
@@ -10,19 +11,9 @@ function MyProperties() {
   const auth=useAuth();
 
   useEffect(()=>{
-      fetch('http://localhost:3000/api/property/get-user-properties', {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            })
-            .then(response => response.json())
+      apiFetch('/api/property/get-user-properties')
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
-                }
-                else if(res.success===true){                    
+                if(res.success===true){
                     setProperties(res.properties);
                 }
                 else console.log("something is wrong")
@@ -30,7 +21,7 @@ function MyProperties() {
             .catch(e => {
                 console.log(e)
             })
-    },[auth])
+    },[])
   return (
     <div className="my-properties-wrapper">      
         <PropertiesCounter userId={auth.user.user_id} totalCounter={true} forSaleCounter={true} rentalsCounter={true}/>

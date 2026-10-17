@@ -1,14 +1,13 @@
 import { useState,useContext, createContext } from "react";
-import {useAuth} from "../../components/AuthContext/AuthContext";
+import { apiFetch } from "../../utils/apiClient";
 const PropertyDetailsContext = createContext(null);
 
 function PropertyDetailsProvider({ children }) {
 
     const [property, setProperty]=useState({});
     const [propertyImages,setPropertyImages]=useState([])
-    const auth=useAuth();
     const [modalOpen, setModalOpen] = useState(false);
-    
+
     const handleModalClose = () => {
         setModalOpen(false);
     };
@@ -17,20 +16,9 @@ function PropertyDetailsProvider({ children }) {
     };
 
     const getPropertyImages=(propertyId)=>{
-        
-        fetch('http://localhost:3000/api/property/get-property-images/'+propertyId, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            })
-            .then(response => response.json())
+        apiFetch('/api/property/get-property-images/'+propertyId)
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
-                }
-                else if(res.success===true){
+                if(res.success===true){
                     setPropertyImages(res.images);
                     console.log(res.images)
                 }
@@ -43,20 +31,9 @@ function PropertyDetailsProvider({ children }) {
             })
     }
     const getPropertyDetails=(propertyId)=>{
-        
-        fetch('http://localhost:3000/api/property/get-property-details/'+propertyId, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            })
-            .then(response => response.json())
+        apiFetch('/api/property/get-property-details/'+propertyId)
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
-                }
-                else if(res.success===true){
+                if(res.success===true){
                     setProperty(res.property);
                 }
                 else if(res.success==false){

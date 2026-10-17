@@ -1,26 +1,15 @@
 import { useState,useContext, createContext } from "react";
-import {useAuth} from "../../components/AuthContext/AuthContext";
+import { apiFetch } from "../../utils/apiClient";
 const PropertyCardGridContext = createContext(null);
 
 const PropertyCardGridProvider = ({ children }) => {
     const [propertiesList, setPropertiesList]=useState([]);
     //const [pageNumber,setPageNumber]=useState(1)//use later for pagination
-    const auth=useAuth();
 
     const getProperties=()=>{
-        fetch('http://localhost:3000/api/property/get-user-properties', {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            })
-            .then(response => response.json())
+        apiFetch('/api/property/get-user-properties')
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
-                }
-                else if(res.success===true){                    
+                if(res.success===true){
                     setPropertiesList(res.properties);
                 }
                 else console.log("something is wrong")

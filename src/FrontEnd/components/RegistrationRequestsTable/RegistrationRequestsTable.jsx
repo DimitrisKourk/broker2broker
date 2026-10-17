@@ -5,15 +5,15 @@ function RegistrationRequestsTable() {
     
 
     const  handleCategoryChangePending= ()=> {
-        context.setUrl('http://localhost:3000/api/user/admin/pending-registration-requests');
+        context.setUrl('/api/user/admin/pending-registration-requests');
         context.setCategory('pending')
     }
     const  handleCategoryChangeApproved= ()=> {
-        context.setUrl('http://localhost:3000/api/user/admin/approved-registration-requests');
+        context.setUrl('/api/user/admin/approved-registration-requests');
         context.setCategory('approved')
     }
     const  handleCategoryChangeDeclined= ()=> {
-        context.setUrl('http://localhost:3000/api/user/admin/declined-registration-requests');
+        context.setUrl('/api/user/admin/declined-registration-requests');
         context.setCategory('declined')
     }
 

@@ -1,24 +1,13 @@
 import { useEffect,useState } from 'react';
 import './FavouritePropertyButton.css'
-import { useAuth } from '../AuthContext/AuthContext';
+import { apiFetch } from '../../utils/apiClient';
 
 function FavouritePropertyButton({propertyId}) {
-    const auth=useAuth();
     const [favourite,setFavourite]=useState(false);
     useEffect(()=>{
-        fetch('http://localhost:3000/api/property/favourite-status/'+propertyId, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            })
-            .then(response => response.json())
+        apiFetch('/api/property/favourite-status/'+propertyId)
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
-                }
-                else if(res.success===true){                    
+                if(res.success===true){
                     setFavourite(res.favourite);
                 }
                 else console.log("something is wrong")
@@ -30,20 +19,10 @@ function FavouritePropertyButton({propertyId}) {
 
     const handleFavouriteAction= ()=>{
         if(favourite){
-        fetch('http://localhost:3000/api/property/remove-favourite/'+propertyId, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            })
-            .then(response => response.json())
+        apiFetch('/api/property/remove-favourite/'+propertyId, { method: "DELETE" })
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
-                }
-                else if(res.success===true){  
-                    //favourite removed so return favourite status = false                  
+                if(res.success===true){
+                    //favourite removed so return favourite status = false
                     setFavourite(false);
                 }
                 else {
@@ -55,22 +34,12 @@ function FavouritePropertyButton({propertyId}) {
             });
     }
 
-    else {fetch('http://localhost:3000/api/property/add-favourite/'+propertyId, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            })
-            .then(response => response.json())
+    else {apiFetch('/api/property/add-favourite/'+propertyId, { method: "POST" })
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
+                if(res.success===true){
+                    setFavourite(true);
                 }
-                else if(res.success===true){ 
-                    setFavourite(true);                  
-                }
-                else alert(res.message);      
+                else alert(res.message);
             })
             .catch(e => {
                 console.log(e);

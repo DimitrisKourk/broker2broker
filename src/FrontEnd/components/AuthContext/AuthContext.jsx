@@ -1,5 +1,6 @@
-import { useState,useContext, createContext } from "react";
+import { useState,useContext, createContext, useEffect } from "react";
 import {useNavigate} from "react-router";
+import { API_URL, apiFetch, setUnauthorizedHandler } from "../../utils/apiClient";
 const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -9,7 +10,8 @@ const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const loginAction = async (data,redirectionURL) => {
         try {
-            const response = await fetch('http://localhost:3000/api/user/auth/login/submit-user-info', {
+            //raw fetch (not apiFetch) - a failed login isn't a "session lost" event and shouldn't trigger auto-logout
+            const response = await fetch(API_URL+'/api/user/auth/login/submit-user-info', {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -19,15 +21,8 @@ const AuthProvider = ({ children }) => {
             });
             const res = await response.json();
             if (res.isAuthenticated===true) {
-                const responsePlan= await fetch('http://localhost:3000/api/user/auth/login/check-subscription', {
-                    method: "GET",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                });
+                const resPlan = await apiFetch('/api/user/auth/login/check-subscription');
 
-                const resPlan= await responsePlan.json();
                 setSubscription(resPlan.plan);
                 setUser(res.user);
                 setIsAuthenticated(res.isAuthenticated.toString());
@@ -52,15 +47,7 @@ const AuthProvider = ({ children }) => {
             localStorage.removeItem("UserData");
             localStorage.removeItem("SubscriptionPlan");
 
-            const response = await fetch('http://localhost:3000/api/user/auth/logout', {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-
-            });
-            const res = await response.json();
+            const res = await apiFetch('/api/user/auth/logout', { method: "POST" });
             if(res.loggedOut){
                 navigate("/auth");
             }
@@ -69,6 +56,11 @@ const AuthProvider = ({ children }) => {
             console.error(err);
         }
     };
+
+    //keep apiFetch's auto-logout handler pointed at the current logOut closure
+    useEffect(() => {
+        setUnauthorizedHandler(logOut);
+    });
 
     return (
         <AuthContext.Provider value={{user, isAuthenticated,subscription, loginAction, logOut }}>

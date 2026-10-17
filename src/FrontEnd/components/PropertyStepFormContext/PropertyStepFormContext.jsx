@@ -1,5 +1,5 @@
 import { useState,useEffect,useContext, createContext } from "react";
-import {useAuth} from "../AuthContext/AuthContext";
+import { apiFetch } from "../../utils/apiClient";
 const PropertyStepFormContext = createContext(null);
 
 const PropertyStepFormProvider = ({ children }) => {
@@ -9,7 +9,6 @@ const PropertyStepFormProvider = ({ children }) => {
     const [imageFiles,setImageFiles]=useState([]);
     const [imageNumber,setImageNumber]=useState(0)
     const formpages=10;
-    const auth=useAuth();
 
     const [modalOpen, setModalOpen] = useState(false);
     
@@ -73,42 +72,25 @@ const PropertyStepFormProvider = ({ children }) => {
         imageFiles.forEach((file)=>{
             PropertyFormImages.append(`files`,file);
         });
-        fetch('http://localhost:3000/api/property/upload-property-images', {
-                method: "POST",
-                credentials: "include",
-                body: PropertyFormImages,
-            })
-            .then(response => response.json())
+        apiFetch('/api/property/upload-property-images', { method: "POST", body: PropertyFormImages })
             .then(res => {
                 if(res.heroImageSuccess && res.imagesSuccess) {
                     nextStep();
                 }
                 else if(res.imagesSuccess===false) alert(res.imagesMessage)
                 else if(res.heroImageSuccess===false) alert(res.hereImageMessage);
-                
+
             })
             .catch(e => {
                 console.log(e)
             })
-        
+
     }
 
     const uploadData=()=>{
-        
-        fetch('http://localhost:3000/api/property/upload-property-data', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify({"propertyData":property}),
-            })
-            .then(response => response.json())
+        apiFetch('/api/property/upload-property-data', { method: "POST", json: {propertyData: property} })
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
-                }
-                else if(res.success===true && imageNumber>0){
+                if(res.success===true && imageNumber>0){
                     console.log(res.propertyId)
                     uploadImages(res.propertyId);
                 }
@@ -130,20 +112,9 @@ const PropertyStepFormProvider = ({ children }) => {
 
     const updateProperty=()=>{
         console.log('Updating...')
-        fetch('http://localhost:3000/api/property/update-property-data', {
-                method: "Put",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify({"propertyData":property}),
-            })
-            .then(response => response.json())
+        apiFetch('/api/property/update-property-data', { method: "PUT", json: {propertyData: property} })
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
-                }
-                else if(res.success===true){
+                if(res.success===true){
                     console.log(res.message)
                     nextStep();
                 }
@@ -156,19 +127,9 @@ const PropertyStepFormProvider = ({ children }) => {
             })
     }
     const getPropertyDetails=(propertyId)=>{
-        fetch('http://localhost:3000/api/property/get-property-details/'+propertyId, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            })
-            .then(response => response.json())
+        apiFetch('/api/property/get-property-details/'+propertyId)
             .then(res => {
-                if(res?.isAuthenticated===false){
-                    auth.logOut();
-                }
-                else if(res.success===true){
+                if(res.success===true){
                     console.log(res.property)
                     setProperty(res.property);
                 }

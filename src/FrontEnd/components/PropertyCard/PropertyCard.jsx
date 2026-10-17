@@ -9,7 +9,7 @@ import FavouritePropertyButton from '../FavouritePropertyButton/FavouritePropert
 function PropertyCard({property}) {
     const auth=useAuth();
     
-    let heroImageRef= 'http://localhost:3000/property-images'+property.hero_image;
+    let heroImageRef= import.meta.env.VITE_IMAGE_API_URL+property.hero_image;
   return (
     <div className="property-card"> 
         <img className='property-card-img' src={heroImageRef} alt='404 no image' />

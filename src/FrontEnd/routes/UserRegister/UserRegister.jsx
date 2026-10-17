@@ -1,5 +1,6 @@
 import {Link} from "react-router";
 import {useState,useEffect} from "react";
+import { apiFetch } from "../../utils/apiClient";
 
 function UserRegister() {
     const [name,setName ] = useState("");
@@ -22,15 +23,7 @@ function UserRegister() {
             alert("Input cannot be empty!");
         } else {
             let userData={name:name,surname:surname,business_name:businessName,AFM:AFM,area_of_operation:areaOfOperation,email:email,phone_mobile:phoneMobile,phone_landline:phoneLandline,username: username, password: password};
-            fetch('http://localhost:3000/api/user/auth/register/submit-user-info', {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(userData),
-            })
-            .then(response => response.json())
+            apiFetch('/api/user/auth/register/submit-user-info', { method: "POST", json: userData })
             .then(res => {
                 alert(res.message);
             })
@@ -43,15 +36,7 @@ function UserRegister() {
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             console.log(username)
-            fetch('http://localhost:3000/api/user/auth/register/check-username', {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({username: username}),
-            })
-                .then(response => response.json())
+            apiFetch('/api/user/auth/register/check-username', { method: "POST", json: {username: username} })
                 .then(res => {
                     setAvailableUsername(!res.usernameExists)
                 })
