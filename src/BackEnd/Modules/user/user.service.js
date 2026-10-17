@@ -79,7 +79,7 @@ const createUser= async (payload)=>{
 
 const getUserCredentials= async (payload)=>{
     try {
-        return await userRepository.getUserByUsername(payload.database,payload.username);
+        return await userRepository.getUserCredentials(payload.database,payload.username);
     }
     catch (e) {
         return e;

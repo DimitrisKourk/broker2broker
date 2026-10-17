@@ -10,7 +10,7 @@ import { uploadProfilePicture } from '../../utils/multerConfig.js';
 export default function userRouter(data) {
     let router = express.Router();
 
-    router.get("/all", async (req,res)=> {
+    router.get("/all",isAdmin, async (req,res)=> {
             res.locals.database = data.db;
             await userController.getAllUsers(req, res)
     });

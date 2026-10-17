@@ -1,7 +1,9 @@
 
+const USER_PUBLIC_COLUMNS = '`user_id`,`name`,`surname`,`business_name`,`AFM`,`area_of_operation`,`email`,`phone_landline`,`phone_mobile`,`role`,`username`,`profile_image`';
+
 const getAllUsers= async (database)=>{
     try {
-        const sql = 'SELECT * FROM `users`';
+        const sql = `SELECT ${USER_PUBLIC_COLUMNS} FROM \`users\``;
         const [rows] = await database.query(sql);
 
         return rows;
@@ -93,6 +95,22 @@ const checkUsernameExists= async (database,username)=>{
     }
 }
 const getUserByUsername= async (database,username)=>{
+    try {
+        const sql = `SELECT ${USER_PUBLIC_COLUMNS} FROM \`users\` where \`username\`= ?`;
+        let values=[username];
+        const [rows] = await database.execute(sql,values);
+        if(rows.length===0){
+            return {success:false,message:"No user found matching this username"};
+        }
+        return {success:true,user:rows[0]};
+
+    } catch (err) {
+        return err;
+    }
+}
+
+//keeps the password hash, unlike getUserByUsername above - only for internal use by the login strategy, never returned to a client
+const getUserCredentials= async (database,username)=>{
     try {
         const sql = 'SELECT * FROM `users` where `username`= ?';
         let values=[username];
@@ -214,7 +232,7 @@ const getUserByBusinessName= async (database,businessName)=>{
         const name="%"+businessName+"%"
         const values=[name]
         console.log(values)
-        const sql = `SELECT * FROM users where business_name LIKE ?`;
+        const sql = `SELECT ${USER_PUBLIC_COLUMNS} FROM users where business_name LIKE ?`;
         const [rows] = await database.query(sql,values);
         if(rows.length===0){
             return {success:false,message:"No users found matching the given business name"};
@@ -434,4 +452,4 @@ const updateUserRole=async(database,userId,role)=>{
     }
 }
 
-export {getProfilePicture,getUserByBusinessName,getUserByID,getAllUsers,createUser,getUserByUsername,getUserPassport,checkUsernameExists,checkSubscription,getPendingRegistrationRequests,getApprovedRegistrationRequests,getDeclinedRegistrationRequests,approveRegistrationRequest,declineRegistrationRequest,createAssociationRequest,acceptAssociationRequest,declineAssociationRequest,getAssociationStatus,getAssociationRequest,cancelAssociationRequest,createAssociation,deleteAssociation,getAssociates,uploadProfilePicture,updateUserRole};
+export {getProfilePicture,getUserByBusinessName,getUserByID,getAllUsers,createUser,getUserByUsername,getUserCredentials,getUserPassport,checkUsernameExists,checkSubscription,getPendingRegistrationRequests,getApprovedRegistrationRequests,getDeclinedRegistrationRequests,approveRegistrationRequest,declineRegistrationRequest,createAssociationRequest,acceptAssociationRequest,declineAssociationRequest,getAssociationStatus,getAssociationRequest,cancelAssociationRequest,createAssociation,deleteAssociation,getAssociates,uploadProfilePicture,updateUserRole};
