@@ -3,7 +3,7 @@
 import express from 'express';
 import * as userController from './user.controller.js';
 import passport from "passport";
-import {isAuthenticated} from "../../utils/userAuthorization.js";
+import {isAuthenticated, isActiveMember} from "../../utils/userAuthorization.js";
 import {isAdmin} from "../../utils/adminAuthorization.js";
 import { uploadProfilePicture } from '../../utils/multerConfig.js';
 
@@ -15,27 +15,27 @@ export default function userRouter(data) {
             await userController.getAllUsers(req, res)
     });
 
-    router.get("/get-user/:username",isAuthenticated, async (req,res)=> {
+    router.get("/get-user/:username",isActiveMember, async (req,res)=> {
             res.locals.database = data.db;
             await userController.getUserByUsername(req, res);
     });
 
-    router.get("/get-profile-picture/:userId",isAuthenticated, async (req,res)=> {
+    router.get("/get-profile-picture/:userId",isActiveMember, async (req,res)=> {
             res.locals.database = data.db;
             await userController.getProfilePicture(req, res);
     });
 
-    router.post("/profile/upload-profile-picture",isAuthenticated,uploadProfilePicture.single("file") ,async (req, res) => {
+    router.post("/profile/upload-profile-picture",isActiveMember,uploadProfilePicture.single("file") ,async (req, res) => {
         res.locals.database = data.db;
         await userController.uploadProfilePicture(req, res);
         }
     );
-    
-    router.get("/search-user/business-name/:businessName",isAuthenticated, async (req,res)=> {
+
+    router.get("/search-user/business-name/:businessName",isActiveMember, async (req,res)=> {
             res.locals.database = data.db;
             await userController.getUserByBusinessName(req, res);
     });
-    router.get("/get-associates/",isAuthenticated, async (req,res)=> {
+    router.get("/get-associates/",isActiveMember, async (req,res)=> {
             res.locals.database = data.db;
             console.log("getting associates")
             await userController.getAssociates(req, res);
@@ -106,29 +106,29 @@ export default function userRouter(data) {
         await userController.declineRegistrationRequest(req, res)
     })
 
-    router.get("/association-status/:userId",isAuthenticated,async (req,res)=>{
+    router.get("/association-status/:userId",isActiveMember,async (req,res)=>{
         res.locals.database=data.db;
         await userController.getAssociationStatus(req, res)
     })
 
-    router.post("/association-request/create/:userId",isAuthenticated,async (req,res)=>{
+    router.post("/association-request/create/:userId",isActiveMember,async (req,res)=>{
         res.locals.database=data.db;
         await userController.createAssociationRequest(req, res)
     })
-    router.put("/association-request/cancel/:requestId",isAuthenticated,async (req,res)=>{
+    router.put("/association-request/cancel/:requestId",isActiveMember,async (req,res)=>{
         res.locals.database=data.db;
         await userController.cancelAssociationRequest(req, res)
     })
 
-    router.put("/association-request/accept/:requestId/from/:userId",isAuthenticated,async (req,res)=>{
+    router.put("/association-request/accept/:requestId/from/:userId",isActiveMember,async (req,res)=>{
         res.locals.database=data.db;
         await userController.acceptAssociationRequest(req, res)
     })
-    router.put("/association-request/decline/:requestId",isAuthenticated,async (req,res)=>{
+    router.put("/association-request/decline/:requestId",isActiveMember,async (req,res)=>{
         res.locals.database=data.db;
         await userController.declineAssociationRequest(req, res)
     })
-    router.delete("/association/delete/:userId",isAuthenticated,async (req,res)=>{
+    router.delete("/association/delete/:userId",isActiveMember,async (req,res)=>{
         res.locals.database=data.db;
         await userController.deleteAssociation(req, res)
     })
