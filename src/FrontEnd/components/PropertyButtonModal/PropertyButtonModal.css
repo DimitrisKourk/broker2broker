@@ -1,4 +1,20 @@
 
+.UploadButtonWrapper{
+    display: flex;
+}
+.UploadButtonWrapper .UploadButton{
+    margin-top: 13%;
+    margin-bottom: 13%;
+    color: #f67d00;
+    background-color: rgba(0, 21, 42, .5);
+    border: 2px solid #f67d00;
+}
+
+.UploadButtonWrapper .UploadButton:hover{
+    color: white;
+    background-color: rgba(0, 21, 42, 1);
+}
+
 .update-button-wrapper{
     display: flex;
 }
@@ -10,12 +26,12 @@
     padding: 5px;
 }
 
-.update-button-wrapper .update-button:hover{ 
-    color: white;    
+.update-button-wrapper .update-button:hover{
+    color: white;
     background-color: rgba(0, 21, 42, 1);
 }
 
-.update-property-modal{
+.upload-property-modal{
     background: rgba(0, 21, 42, 1);
     width: 60%;
     height: 60%;

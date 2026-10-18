@@ -3,7 +3,7 @@ import './NavBarHome.css'
 import NotificationsComponent from "../NotificationsComponent/NotificationsComponent"
 import ProfileIconComponent from "../ProfileIconComponent/ProfileIconComponent"
 import PropertyStepFormProvider from "../PropertyStepFormContext/PropertyStepFormContext"
-import UploadPropertyButtonModal from "../UploadPropertyButtonModal/UploadPropertyButtonModal"
+import PropertyButtonModal from "../PropertyButtonModal/PropertyButtonModal"
 
 
 function NavBarHome() {
@@ -16,7 +16,7 @@ function NavBarHome() {
                     </Link>
                     <ul>
                         <PropertyStepFormProvider>
-                            <UploadPropertyButtonModal/>
+                            <PropertyButtonModal mode='upload'/>
                         </PropertyStepFormProvider>
                         <NotificationsComponent/>
                         <Link to="/home">Home</Link>  

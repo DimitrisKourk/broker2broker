@@ -1,5 +1,5 @@
 import PropertyDetailsButtonModal from '../PropertyDetailsButtonModal/PropertyDetailsButtonModal';
-import UpdatePropertyButtonModal from '../UpdatePropertyButtonModal/UpdatePropertyButtonModal';
+import PropertyButtonModal from '../PropertyButtonModal/PropertyButtonModal';
 import PropertyDetailsProvider from '../PropertyDetailsContext/PropertyDetailsContext';
 import PropertyStepFormProvider from '../PropertyStepFormContext/PropertyStepFormContext';
 import './PropertyCard.css';
@@ -32,7 +32,7 @@ function PropertyCard({property}) {
                 <PropertyDetailsButtonModal propertyId={property.property_id}/>
                 {auth.user.user_id===property.user_id ?
                         <PropertyStepFormProvider>
-                    <UpdatePropertyButtonModal propertyId={property.property_id}/>
+                    <PropertyButtonModal mode='update' propertyId={property.property_id}/>
                     </PropertyStepFormProvider>
                 :<PropertyCardUploaderIcon userId={property.user_id} username={property.uploader_username}/>}
             </PropertyDetailsProvider>
