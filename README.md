@@ -1,6 +1,6 @@
 # Broker2Broker
 
-> **Work in progress.** This project is under active development. Core features work, but several sections are still being built (marked ** In development** below), and the code has not yet been through a security hardening pass. It is not production-ready.
+> **Work in progress.** This project is under active development. Core features work, but several sections are still being built (marked ** In development** below). The backend has been through a security hardening pass (server-side role enforcement, access-control fixes, upload validation, session cookie hardening) — see Platform status below — but it still lacks automated tests, CI, and a few planned features, so treat it as pre-production.
 
 A **B2B web platform for real-estate brokers**: verified professionals share property listings with each other, build networks of trusted partners ("associates"), and control exactly who can see each listing.
 
@@ -47,7 +47,7 @@ My first attempt at an enterprise-level application, built with a **React** fron
 | Subscription management in the profile |  In development |
 | User dashboard |  In development |
 | Landing page and About page |  In development |
-| Server-side role enforcement and upload validation (security hardening) |  In development |
+| **Server-side role enforcement and upload validation (security hardening):** backend access-control checks mirroring the frontend's route guards, property visibility enforcement, upload file-type/size/ownership validation, hardened session cookies | ✅ |
 | Database schema / migration script in the repository |  In development |
 
 ## Tech stack
@@ -99,7 +99,7 @@ src/
 └── FrontEnd/
     ├── routes/                 # pages (Home, Profile, Properties, Auth, Pricing…)
     ├── components/             # reusable components and context providers
-    └── utils/
+    └── utils/                  # apiClient (shared fetch wrapper), misc helpers
 ```
 
 ## Running locally
@@ -130,12 +130,12 @@ src/
 
 ## Roadmap
 
-- Security hardening: server-side role checks, stricter data filtering, upload validation
 - Region-based visibility
 - Subscription plans and payments
 - Notifications and property alerts
 - User and admin dashboards
 - Landing page, About page, and database schema scripts
+- Automated tests and CI
 
 ---
 
