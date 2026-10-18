@@ -19,7 +19,6 @@ const PropertyStepFormProvider = ({ children }) => {
         setModalOpen(true);
     };
 
-    // known bug: for some reason this fires after we hit the next step button 
     useEffect(() => {
         localStorage.setItem("PropertyData",JSON.stringify(property));
     }, [JSON.stringify(property)]);
