@@ -27,11 +27,11 @@ function PropertyDetailsImageSlider() {
             ref={slider => (sliderRef1 = slider)} 
             arrows={false}
         >
-            {context.propertyImages.map(image=>
-                <div className='slider-image-container'>
-                    <img className='slider-image'  src={imageAPI + image.image_path} />
+            {context.propertyImages.map((image,index)=>
+                <div className='slider-image-container' key={image.image_id}>
+                    <img className='slider-image'  src={imageAPI + image.image_path} alt={`Property photo ${index+1}`} />
                 </div>
-            )}   
+            )}
       </Slider>
       <Slider
         asNavFor={nav1}
@@ -40,11 +40,11 @@ function PropertyDetailsImageSlider() {
         swipeToSlide={true}
         focusOnSelect={true}
       >
-        {context.propertyImages.map(image=>
-                <div>
-                    <img className='small-slider-image'  src={imageAPI + image.image_path} />
+        {context.propertyImages.map((image,index)=>
+                <div key={image.image_id}>
+                    <img className='small-slider-image'  src={imageAPI + image.image_path} alt={`Property photo ${index+1} thumbnail`} />
                 </div>
-            )}   
+            )}
       </Slider>
     </div>
   );
