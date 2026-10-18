@@ -17,7 +17,10 @@ const  PropertyStepForm=({type,propertyId})=> {
   const context=UsePropertyStepForm(); 
   useEffect(()=>{
     if(type==='update') context.getPropertyDetails(propertyId);
-  },[])
+    //context isn't memoized by PropertyStepFormProvider (a new object every render), so adding it
+    //here would refetch in a loop once getPropertyDetails() sets state - only re-run on type/propertyId change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[type,propertyId])
   
   return (
     <div className='PropertyStepForm'>

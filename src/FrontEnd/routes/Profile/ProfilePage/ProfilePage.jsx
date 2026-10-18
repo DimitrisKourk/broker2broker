@@ -14,7 +14,10 @@ function MyProfilePage() {
     const {user}=useParams();
     useEffect(()=>{
         context.getUserData(user,false)
-    },[])
+        //context isn't memoized by UserProfileProvider (a new object every render), so adding it
+        //here would refetch in a loop once getUserData() sets state - only re-run on user change
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[user])
 
   return (
     <div className="my-profile-page">
@@ -40,7 +43,10 @@ function ProfilePage() {
     const {user}=useParams();
     useEffect(()=>{
         context.getUserData(user,true);
-    },[])
+        //context isn't memoized by UserProfileProvider (a new object every render), so adding it
+        //here would refetch in a loop once getUserData() sets state - only re-run on user change
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[user])
 
   return (
     <div className="profile-page">

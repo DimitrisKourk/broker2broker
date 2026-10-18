@@ -4,6 +4,9 @@ function AssociationStatus() {
     const context=useProfile();
     useEffect(()=>{
         context.getAssociationStatus()
+        //context isn't memoized by UserProfileProvider (a new object every render), so adding it
+        //here would refetch in a loop once getAssociationStatus() sets state - fetch once on mount only
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
   return (
     <div>

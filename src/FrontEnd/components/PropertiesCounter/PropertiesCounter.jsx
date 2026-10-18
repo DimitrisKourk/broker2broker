@@ -21,7 +21,7 @@ function PropertiesCounter({userId,totalCounter,forSaleCounter,rentalsCounter}) 
         .catch(e => {
             console.log(e)
         })
-    },[])
+    },[userId])
   return (
     <div className="properties-counters">
         {totalCounter && <div>Total Properties: {totalProperties}</div>}

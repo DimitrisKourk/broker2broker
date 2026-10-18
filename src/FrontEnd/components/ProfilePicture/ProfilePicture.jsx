@@ -19,7 +19,7 @@ function ProfilePicture({userId}) {
         .catch(e => {
             console.log(e)
         })
-    },[])
+    },[userId])
 
   return (
     <>

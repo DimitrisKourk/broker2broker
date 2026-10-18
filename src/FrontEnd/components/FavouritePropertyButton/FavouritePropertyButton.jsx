@@ -15,7 +15,7 @@ function FavouritePropertyButton({propertyId}) {
             .catch(e => {
                 console.log(e)
             })
-    },[])
+    },[propertyId])
 
     const handleFavouriteAction= ()=>{
         if(favourite){
