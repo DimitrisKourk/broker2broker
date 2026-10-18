@@ -33,33 +33,36 @@ const getProfilePicture= async (database,userId)=>{
 
 const createUser= async (database,userData)=>{
     const connection= await database.getConnection();
-    let RegisterUserSuccess=false;
-    let CreateRequestSuccess=false;
+    try{
+        let RegisterUserSuccess=false;
+        let CreateRequestSuccess=false;
 
-    const role= 0 // role_id of roles table referencing AprovalPendingUser
-    const valuesUser= [userData.name,userData.surname,userData.business_name,userData.AFM,userData.area_of_operation,userData.email,userData.phone_mobile,userData.phone_landline,role,userData.username,userData.password];
-    const sqlUser = 'INSERT INTO `users`(`name`,`surname`,`business_name`,`AFM`,`area_of_operation`,`email`,`phone_mobile`,`phone_landline`,`role`,`username`,`password`) VALUES (?,?,?,?,?,?,?,?,?,?,?)';
+        const role= 0 // role_id of roles table referencing AprovalPendingUser
+        const valuesUser= [userData.name,userData.surname,userData.business_name,userData.AFM,userData.area_of_operation,userData.email,userData.phone_mobile,userData.phone_landline,role,userData.username,userData.password];
+        const sqlUser = 'INSERT INTO `users`(`name`,`surname`,`business_name`,`AFM`,`area_of_operation`,`email`,`phone_mobile`,`phone_landline`,`role`,`username`,`password`) VALUES (?,?,?,?,?,?,?,?,?,?,?)';
 
-    const [result] = await connection.execute(sqlUser,valuesUser);
+        const [result] = await connection.execute(sqlUser,valuesUser);
 
-    //if the user inserted successfully, create the request
-    if(result.affectedRows){
-        RegisterUserSuccess=true;
+        //if the user inserted successfully, create the request
+        if(result.affectedRows){
+            RegisterUserSuccess=true;
 
-        const id=result.insertId;
-        const valuesRequest= [id];
-        const sqlRequest = 'INSERT INTO `registrationrequests`(`request_date`,`status`,`user_id`) VALUES (NOW(),0,?)';
+            const id=result.insertId;
+            const valuesRequest= [id];
+            const sqlRequest = 'INSERT INTO `registrationrequests`(`request_date`,`status`,`user_id`) VALUES (NOW(),0,?)';
 
-        const [result3] = await connection.execute(sqlRequest,valuesRequest);
+            const [result3] = await connection.execute(sqlRequest,valuesRequest);
 
-        if(result3.affectedRows){
-            CreateRequestSuccess=true;
+            if(result3.affectedRows){
+                CreateRequestSuccess=true;
+            }
         }
+
+        return {registerUserSuccess:RegisterUserSuccess,createRequestSuccess:CreateRequestSuccess};
     }
-
-    connection.release();
-    return {registerUserSuccess:RegisterUserSuccess,createRequestSuccess:CreateRequestSuccess};
-
+    finally{
+        connection.release();
+    }
 }
 
 

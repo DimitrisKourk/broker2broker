@@ -38,7 +38,7 @@ export  const passportConfig = (database) => {
         console.log(userData);
         const user = await userService.getUserPassport({ database: database, id: userData.id });
         if (!user) {
-            done(error, false);
+            return done(error, false);
         }
         done(null, user);
     });

@@ -99,7 +99,7 @@ const logoutUser = async (req, res) => {
     try{
         req.logout((err) => {
             if (err) {
-                res.status(500).json({success:false,message:err.message});
+                return res.status(500).json({success:false,message:err.message});
             }
             req.session.destroy();
             res.clearCookie('connect.sid');
