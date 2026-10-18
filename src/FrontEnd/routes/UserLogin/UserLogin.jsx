@@ -1,7 +1,8 @@
 import React from 'react'
-import {Link, redirect} from "react-router";
+import {Link} from "react-router";
 import {useState} from "react";
 import {useAuth} from "../../components/AuthContext/AuthContext";
+import './UserLogin.css'
 
 function UserLogin({redirectionURL}) {
 
@@ -29,32 +30,31 @@ function UserLogin({redirectionURL}) {
     };
 
     return (
-        <div>UserLogin
-            <div className="loginPage">
-                <h3>Enter your login credentials</h3>
+        <div className="auth-form-page">
+            <div className="auth-form-card">
+                <h2>Welcome back</h2>
+                <p className="auth-form-subtitle">Enter your login credentials</p>
 
                 <form onSubmit={(event)=>handleSubmit(event)}>
                     <label htmlFor="first">
-                        Username:
+                        Username
                     </label>
                     <input type="text" id="first" name="first"
-                           placeholder="Enter your Username" required onChange={handleUsernameChange}/>
+                           placeholder="Enter your username" required onChange={handleUsernameChange}/>
 
                     <label htmlFor="password">
-                        Password:
+                        Password
                     </label>
                     <input type="password" id="password" name="password"
-                           placeholder="Enter your Password" required onChange={handlePasswordChange}/>
+                           placeholder="Enter your password" required onChange={handlePasswordChange}/>
 
-                    <div className="wrap">
-                        <button type="submit">
-                            Submit
-                        </button>
-                    </div>
+                    <button type="submit" className="auth-form-submit">
+                        Submit
+                    </button>
                 </form>
 
-                <p>Not registered?
-                    <Link to="/auth/register" className="registerButton">
+                <p className="auth-form-footer">Not registered?{' '}
+                    <Link to="/auth/register">
                         Create an account
                     </Link>
                 </p>
