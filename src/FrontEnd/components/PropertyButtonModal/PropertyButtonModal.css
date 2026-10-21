@@ -34,7 +34,7 @@
 .upload-property-modal{
     background: var(--color-bg);
     width: 60%;
-    height: 60%;
+    height: 80%;
     padding: 2%;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
