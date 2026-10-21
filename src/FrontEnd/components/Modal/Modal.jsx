@@ -1,9 +1,10 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const Modal = ({ isOpen,modalStyle, children }) => {
     if (!isOpen) return null;
 
-    return (
+    return createPortal(
         <div
             style={{
                 position: "fixed",
@@ -21,7 +22,8 @@ const Modal = ({ isOpen,modalStyle, children }) => {
             <div className={modalStyle}>
                 {children}
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 

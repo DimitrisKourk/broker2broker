@@ -2,11 +2,17 @@
     width: 100%;
     display: flex;
     justify-content: end;
+    flex-shrink: 0;
+}
+
+.close-window-wrapper svg{
+    fill: var(--color-text);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: fill 0.2s, background-color 0.2s;
 }
 
 .close-window-wrapper svg:hover{
-    border: 2px solid #f67d00;
-    border-radius: 5px;
-    fill: white;
-    
+    background-color: var(--color-accent);
+    fill: var(--color-accent-contrast);
 }

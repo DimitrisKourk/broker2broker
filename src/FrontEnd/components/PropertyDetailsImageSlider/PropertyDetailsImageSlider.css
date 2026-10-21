@@ -1,21 +1,21 @@
 .slider-container{
     width:60%;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-5);
 }
 .slider-image-container{
     width: 100%;
-    padding-right: .5rem ;
+    padding-right: var(--space-2);
 
 }
 .slider-image{
     width: 100%;
     object-fit: cover;
-    border-radius: 1rem;
+    border-radius: var(--radius-md);
 
 }
 
 .small-slider-image{
     width: 95%;
     object-fit: cover;
-    border-radius: 1rem;
+    border-radius: var(--radius-md);
 }
