@@ -1,5 +1,5 @@
 .properties-grid-wrapper{
-    padding-left: 10px ;
+    padding: var(--space-3);
     width:100%;
 }
 .property-card-grid{
@@ -7,6 +7,5 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
-    overflow-y: scroll;
     justify-content: space-evenly;
 }

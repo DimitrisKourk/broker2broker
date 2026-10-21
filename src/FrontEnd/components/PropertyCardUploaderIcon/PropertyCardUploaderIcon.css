@@ -1,5 +1,6 @@
 .property-uploader-icon{
-    width: 30%;
+    width: 2.5rem;
+    cursor: pointer;
 }
 
 .property-uploader-icon .profile-picture{
@@ -10,10 +11,6 @@
     border-radius: 50%;
     transition: 0.25s;
 }
-.property-uploader-icon:hover{
-    .profile-picture{
-        border-color: white;
-    
-    }
-    cursor: pointer;
+.property-uploader-icon:hover .profile-picture{
+    border-color: var(--color-accent);
 }
