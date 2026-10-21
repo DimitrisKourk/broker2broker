@@ -73,13 +73,13 @@
     width: 100%;
     margin-top: var(--space-1);
 }
-.profile-dropdown-body .properties-link,.profile-dropdown-body .profile-link {
+.profile-dropdown-body .properties-link,.profile-dropdown-body .profile-link,.profile-dropdown-body .admin-link {
     padding: var(--space-1) var(--space-2);
     width: 100%;
     border-radius: var(--radius-sm);
 }
 
-.profile-dropdown-body .properties-link:hover,.profile-dropdown-body .profile-link:hover {
+.profile-dropdown-body .properties-link:hover,.profile-dropdown-body .profile-link:hover,.profile-dropdown-body .admin-link:hover {
     color: var(--color-accent);
     background-color: rgba(246, 125, 0, 0.1);
 }

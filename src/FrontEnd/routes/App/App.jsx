@@ -11,6 +11,8 @@ import './App.css'
 import UserRegister from "../UserRegister/UserRegister";
 import AdminRoute from "../../components/AdminRoute/AdminRoute";
 import RegistrationRequests from "../../components/RegistrationRequests/RegistrationRequests";
+import { AdminLayout } from "../Admin/Admin.jsx";
+import AdminDashboard from "../../components/AdminDashboard/AdminDashboard";
 import UnauthorizedArea from "../../components/UnauthorizedArea/UnauthorizedArea";
 import {MyProfile,UserProfile} from '../Profile/Profile.jsx';
 import Properties from "../Properties/Properties.jsx" 
@@ -85,8 +87,10 @@ function CustomRouter() {
                     </Route> 
                 </Route>
                 <Route element={<AdminRoute />}>
-                    <Route path="/admin/home" element={<div> ADMIN HOME</div>} />
-                    <Route path="/admin/registration-requests" element={<RegistrationRequests />} />
+                    <Route path="/admin" element={<AdminLayout />}>
+                        <Route path="home" element={<AdminDashboard />} />
+                        <Route path="registration-requests" element={<RegistrationRequests />} />
+                    </Route>
                 </Route>
             </Routes>
         </div>

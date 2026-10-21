@@ -2,6 +2,7 @@ import './ProfileIconComponent.css';
 import { useAuth } from '../AuthContext/AuthContext';
 import { useState } from 'react';
 import { Link } from 'react-router';
+import { isAdmin } from '../../utils/roles';
 function ProfileIconComponent() {
     const [open,setOpen]=useState(false);
     const auth=useAuth();
@@ -15,8 +16,9 @@ function ProfileIconComponent() {
                     <div className="profile-dropdown-body">
                         <Link to={"/my-profile/"+auth.user.username } className='profile-link'>Profile</Link>
                         <Link to='/my-properties' className='properties-link'>Properties</Link>
+                        {isAdmin(auth.user)?<Link to='/admin/home' className='admin-link'>Admin</Link>:null}
                         <button className='logout-button' onClick={()=>auth.logOut()}>LogOut</button>
-                    </div> 
+                    </div>
                 </div>
         :null}
     </div>
